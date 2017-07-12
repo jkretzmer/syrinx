@@ -1,0 +1,11 @@
+{
+  "name": "syrinx_json_server",
+  "version": "0.0.1",
+  "description": "Syrnix Client Skeleton",
+  "author": "Swift Navigation, Inc.",
+  "license": "MIT",
+  "dependencies": {
+    "connect": "~2.8.4",
+    "socket.io": "^2.0.1"
+  }
+}

@@ -1,0 +1,29 @@
+.app-tracking {
+  height: 100%;
+
+  .card {
+    height: 100%;
+  }
+
+  .card-header{
+    a:link, a:visited, a:active {
+      color: #fff;
+    }
+
+    a:hover {
+      color: $nav-fg-lightgrey;
+    }
+  }
+
+  .card-block {
+    display: flex;
+  }
+
+  .form-check-label {
+    margin-right: 8px;
+  }
+
+  .tracking-plot {
+    flex: 1;
+  }
+}
