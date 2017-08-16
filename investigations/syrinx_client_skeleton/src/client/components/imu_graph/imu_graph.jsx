@@ -38,7 +38,7 @@ const makeMapStateToProps = () => {
   return mapStateToProps
 }
 
-const rootMeanSquare = xs => 
+const rootMeanSquare = xs =>
   Math.sqrt(
     xs.reduce(
       (a, x) => (a + x * x),
@@ -63,7 +63,7 @@ export class IMUGraph extends React.Component {
 
   componentDidMount() {
     this.process();
-    this.interval = setInterval(this.process.bind(this), 5);
+    this.interval = setInterval(this.process.bind(this), 50);
   }
 
   componentWillUnmount() {
@@ -76,7 +76,7 @@ export class IMUGraph extends React.Component {
       return;
     }
 
-    let update = 
+    let update =
       {
         acc_x: [],
         acc_y: [],
@@ -98,7 +98,7 @@ export class IMUGraph extends React.Component {
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    return nextProps.graph_data !== this.props.graph_data  
+    return nextProps.graph_data !== this.props.graph_data
   }
 
 
@@ -121,7 +121,7 @@ export class IMUGraph extends React.Component {
 
     let tickValues = [];
     /*if(!!graph_data[0].acc_x){
-      tickValues = graph_data[0].acc_x.map(d => d.x);  
+      tickValues = graph_data[0].acc_x.map(d => d.x);
     }*/
     //const tickValues = [];
 
@@ -145,7 +145,7 @@ export class IMUGraph extends React.Component {
       }
 
     //self.rms_acc_x = sf * np.sqrt(np.mean(np.square(self.acc[:, 0])))
-   
+
     return(
       <div id="IMUGraph">
         <div id="rms_acc_x">RMS Acceleration X: {rms_acc_x.toFixed(2)}</div>
@@ -163,44 +163,44 @@ export class IMUGraph extends React.Component {
           margin={{top: 5, bottom: 40, left: 50, right: 0}}
           yDomain={yDomain}
         >
-          <LineSeries 
+          <LineSeries
             data={graph_data[0].acc_x}
             stroke='#3385FF'
             strokeWidth={2}
           />
-          <LineSeries 
+          <LineSeries
             data={graph_data[0].acc_y}
             stroke='#FF5733'
             strokeWidth={2}
           />
-          <LineSeries 
+          <LineSeries
             data={graph_data[0].acc_z}
             stroke='#FFD733'
             strokeWidth={2}
           />
-          <LineSeries 
+          <LineSeries
             data={graph_data[0].gyr_x}
             stroke='#42f44b'
             strokeWidth={2}
           />
-          <LineSeries 
+          <LineSeries
             data={graph_data[0].gyr_y}
             stroke='#c141f4'
             strokeWidth={2}
           />
-          <LineSeries 
+          <LineSeries
             data={graph_data[0].gyr_z}
             stroke='#000000'
             strokeWidth={2}
           />
-          
-          <XAxis 
+
+          <XAxis
             tickSize={4}
             tickValues={tickValues}
             labelValues={labelValues}
           />
 
-          <YAxis 
+          <YAxis
             tickSize={4}
           />
         </FlexibleXYPlot>

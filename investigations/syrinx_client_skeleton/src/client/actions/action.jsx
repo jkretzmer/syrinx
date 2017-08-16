@@ -9,9 +9,8 @@ export const bufferSBPData = (data) => ({
 })
 
 /* Used only by actions for sockets */
-export const initialData = (res) => ({
-	type: "INITIAL_DATA",
-	items: res
+export const initialData = () => ({
+	type: "INITIAL_DATA"
 })
 
 /***************************************************************************************** */
@@ -19,9 +18,10 @@ export const initialData = (res) => ({
 /***************************************************************************************** */
 export const startSBPStream = (socket) => {
 	return (dispatch) => {
-		socket.on('connected',(res)=>{
-		   	socket.emit('init');
-		   	dispatch(initialData(res));
-	   });
-	}	
+    socket.onopen = () => {
+        console.log("connection opened");
+        socket.send("SBP_JSON_REQ");
+        dispatch(initialData())
+    }
+	}
 }

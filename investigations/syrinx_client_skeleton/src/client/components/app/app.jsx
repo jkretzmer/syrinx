@@ -15,13 +15,13 @@ import ReactDOM from "react-dom"
 import {connect} from 'react-redux'
 import {startSBPStream,bufferSBPData} from '../../actions/action.jsx'
 import { Route, Switch, Redirect } from 'react-router-dom'
-import io from "socket.io-client"
 
 import IMUGraph from '../imu_graph/imu_graph.jsx'
 import sbpIMU from 'libsbp/javascript/sbp/imu';
 
 
 let socket;
+
 const mapStateToProps = (state) => {
   return {
       sbp_data: state.sbp_data
@@ -34,19 +34,25 @@ export class App extends React.Component {
     super(props);
     const {dispatch} = this.props;
 
-
-
-    socket = io.connect("http://localhost:3000", { transports: ['websocket']});
+    socket = new WebSocket("ws://10.1.23.5:5000", "sbp-ws");
     console.dir(socket);
+
     dispatch(startSBPStream(socket));
 
-    socket.on('data',(res)=>{
-      dispatch(bufferSBPData(JSON.parse(res)))
-    });
+    socket.onmessage = (packet)=>{
+      let json_output = packet.data.split('\0');
+      json_output.map((sentence)=>{
+        if(sentence.length > 0) {
+          console.log(sentence);
+          dispatch(bufferSBPData(JSON.parse(sentence)));
+        }
+      });
+    }
   }
 
   componentWillUnmount(){
-    socket.disconnect();
+    socket.onclose = function (){};
+    socket.close();
     console.log('Socket will disconnect');
   }
 
