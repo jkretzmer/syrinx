@@ -1,0 +1,12 @@
+/**
+ * Override Bootstrap styles that you can't modify via variables here.
+ *
+ */
+@import './App.scss';
+@import '~bootstrap-sass/assets/stylesheets/bootstrap/_theme.scss';
+
+@import url('https://fonts.googleapis.com/css?family=Roboto|Roboto+Condensed');
+
+.navbar-brand {
+  padding-left: 30px;
+}
